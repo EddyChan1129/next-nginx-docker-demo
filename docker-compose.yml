@@ -5,18 +5,30 @@ services:
     build: .
     container_name: next-app
     expose:
-      - "3000"           # 只俾同 network 內其他 container 用
+      - "3000"
     environment:
       - NODE_ENV=production
+      - PORT=3000
+    command: ["npm", "run", "start", "--", "-H", "0.0.0.0"]
+    restart: unless-stopped
+
+  backend:
+    build: ./backend
+    container_name: backend-api
+    expose:
+      - "4000"
+    environment:
+      - PORT=4000
     restart: unless-stopped
 
   nginx:
     image: nginx:alpine
     container_name: next-nginx
     ports:
-      - "8080:80"        # host:container  → Playground 開 8080
+      - "8080:80"
     volumes:
       - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
     depends_on:
       - app
+      - backend
     restart: unless-stopped
