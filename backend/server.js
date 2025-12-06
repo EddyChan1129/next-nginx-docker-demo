@@ -23,6 +23,8 @@ app.get("/api/hello", (req, res) => {
 app.get("/api/test", (req, res) => {
   console.log("Host:", req.headers.host);
   console.log("X-Real-IP:", req.headers["x-real-ip"]);
+  console.log("X-Forwarded-For:", typeof (req.headers["x-forwarded-for"]));
+
   console.log("X-Forwarded-For:", req.headers["x-forwarded-for"]);
   res.json({ message: "ok" });
 });
