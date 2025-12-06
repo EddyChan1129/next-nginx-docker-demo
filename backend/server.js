@@ -20,7 +20,7 @@ app.get("/api/hello", (req, res) => {
   });
 });
 
-app.get("/test", (req, res) => {
+app.get("/api/test", (req, res) => {
   console.log("Host:", req.headers.host);
   console.log("X-Real-IP:", req.headers["x-real-ip"]);
   console.log("X-Forwarded-For:", req.headers["x-forwarded-for"]);
